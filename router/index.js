@@ -7,8 +7,6 @@ const errorHandler = require('../middleware/errorHandler');
 
 router.use('/', authRoute)
 
-router.use(authentication)
-
 router.use('/events', eventRoute)
 
 router.use(errorHandler)
