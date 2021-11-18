@@ -13,8 +13,8 @@ async function postEmailCreator(inputPlayer) {
   });
   let info = await transporter.sendMail({
     from: 'nzwebfuture@gmail.com', // sender address
-    to: inputPlayer.email, // list of receivers
-    subject: "Hello, Thank You For Joining", // Subject line
+    to: `${inputPlayer.email}`, // list of receivers
+    subject: "Hello, Thank You For Joining Sportskuy", // Subject line
     text: `
     Hallo you are joining the ${inputPlayer.eventname}.
     Sports: ${inputPlayer.category}

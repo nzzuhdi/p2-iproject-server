@@ -12,7 +12,9 @@ const errorHandler = async (err, req, res, next) => {
         res.status(401).json({ message: 'unauthorized' })
     } else if (err.name === 'forbidden') {
         res.status(403).json({ message: 'You have no access!' })
-    } else if (err.name === 'notCustomer') {
+    }  else if (err.name === 'doubleJoin') {
+        res.status(403).json({ message: 'You already joined!' })
+    }else if (err.name === 'notCustomer') {
         res.status(403).json({ message: 'You are not Customer!' })
     } else if (err.name === 'notFound') {
         res.status(404).json({ message: 'Page not found!' })

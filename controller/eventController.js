@@ -101,7 +101,7 @@ class eventController {
                         time:`${eventDetail.time}`,
                         category: `${eventDetail.category}`
                       }
-                      await postEmailCreator(inputPlayer)
+                       await postEmailCreator(inputPlayer)
                       res.status(201).json({ user, message: `Success Join ${eventDetail.name} & Check your email for the reminder` })
                 }
             }
