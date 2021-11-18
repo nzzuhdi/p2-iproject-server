@@ -3,15 +3,18 @@ const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
 const eventController = require('../controller/eventController')
-const {authorization,adminAuthorization} = require('../middleware/authorization')
+const {authentication} = require('../middleware/authentication')
+
 
 const toImagekit = require('../middleware/upload')
 
 
 eventRoute.get('/', eventController.getEvents)
+
+eventRoute.use(authentication)
 eventRoute.post('/', upload.single('imageUrl'), toImagekit, eventController.postEvent)
-eventRoute.get('/players', upload.single('imageUrl'), toImagekit, eventController.postEvent)
-eventRoute.post('/players', upload.single('imageUrl'), toImagekit, eventController.postEvent)
+eventRoute.get('/players', eventController.getPlayers)
+eventRoute.post('/players/:eventId', eventController.postPlayers)
 
 eventRoute.get('/:id', eventController.getEventDetail)
 // eventRoute.put('/:id', authorization, upload.single('imgUrl'), toImagekit, eventController.updateEvent)
@@ -19,4 +22,4 @@ eventRoute.get('/:id', eventController.getEventDetail)
 
 
 
-module.exports = newsRoute
+module.exports = eventRoute

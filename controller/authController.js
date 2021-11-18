@@ -6,10 +6,10 @@ const { OAuth2Client } = require("google-auth-library")
 class authController {
     static async register(req, res, next) {
         try {
-            const { email, password } = req.body
-            const createdUser = await User.create({ email, password })
+            const { email, password , username} = req.body
+            const createdUser = await User.create({ email, password, username })
             if (createdUser) {
-                res.status(201).json({ id: createdUser.id, email: createdUser.email })
+                res.status(201).json({ id: createdUser.id, email: createdUser.email , username: createdUser.username})
             }
         } catch (err) {
             console.log(err);
@@ -66,6 +66,7 @@ class authController {
     static async googleLogin(req, res, next) {
         try {
             const { id_token } = req.body
+            console.log(req.body);
             const client_id = process.env.GOOGLE_OATHID
             const client = new OAuth2Client(client_id)
             const ticket = await client.verifyIdToken({
