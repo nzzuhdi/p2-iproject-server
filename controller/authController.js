@@ -93,6 +93,7 @@ class authController {
             let access_token = signToken(tokenPayload)
             res.status(status).json({ access_token })
         } catch (err) {
+            console.log(err);
             next(err)
         }
     }
