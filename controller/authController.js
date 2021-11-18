@@ -6,10 +6,10 @@ const { OAuth2Client } = require("google-auth-library")
 class authController {
     static async register(req, res, next) {
         try {
-            const { email, password } = req.body
-            const createdUser = await User.create({ email, password })
+            const { email, password , username} = req.body
+            const createdUser = await User.create({ email, password, username })
             if (createdUser) {
-                res.status(201).json({ id: createdUser.id, email: createdUser.email })
+                res.status(201).json({ id: createdUser.id, email: createdUser.email , username: createdUser.username})
             }
         } catch (err) {
             console.log(err);

@@ -22,7 +22,7 @@ const upload = async (req, res, next) => {
                 auth: { username: process.env.TOKEN_IMAGEKIT }
             })
             console.log(result);
-            req.body.imgUrl = result.data.url
+            req.body.imageUrl = result.data.url
             next()
         }
 

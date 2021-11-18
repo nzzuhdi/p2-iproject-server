@@ -27,18 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    address: {
-      type:DataTypes.STRING,
-      allowNull:false,
-      validate:{
-        notEmpty:{
-          msg: 'Address is required'
-        },
-        notNull:{
-          msg: 'Address is required'
-        }
-      }
-    },
     category: {
       type:DataTypes.STRING,
       allowNull:false,
@@ -48,6 +36,18 @@ module.exports = (sequelize, DataTypes) => {
         },
         notNull:{
           msg: 'Category is required'
+        }
+      }
+    },
+    address: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notEmpty:{
+          msg: 'Address is required'
+        },
+        notNull:{
+          msg: 'Address is required'
         }
       }
     },
@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     lattitude: {
-      type:DataTypes.INTEGER,
+      type:DataTypes.STRING,
       allowNull:false,
       validate:{
         notEmpty:{
@@ -79,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     longitude: {
-      type:DataTypes.INTEGER,
+      type:DataTypes.STRING,
       allowNull:false,
       validate:{
         notEmpty:{
