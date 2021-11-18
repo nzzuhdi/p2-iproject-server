@@ -1,19 +1,11 @@
 const nodemailer = require("nodemailer");
 
-
 // async..await is not allowed in global scope, must use a wrapper
-let inputPlayer =  {
-  email: 'nawfalzuhdi@gmail.com',
-  eventname: 'bola',
-  date: 21,
-  time:'8.30'
-}
-let pass = process.env.GMAIL_PASS
 
-console.log(pass);
+
 async function postEmailCreator(inputPlayer) {
-try {
-  console.log(inputPlayer);
+  try {
+    let pass = process.env.GMAIL_PASS
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -29,6 +21,7 @@ try {
     subject: "Hello, Thank You For Joining", // Subject line
     text: `
     Hallo you are joining the ${inputPlayer.eventname}.
+    Sports: ${inputPlayer.category}
     save the date on ${inputPlayer.date} , ${inputPlayer.time}.
     Dont be missing!  
     `, // plain text body
@@ -46,4 +39,4 @@ try {
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-postEmailCreator(inputPlayer)
+module.exports = postEmailCreator

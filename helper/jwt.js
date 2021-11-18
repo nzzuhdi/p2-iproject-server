@@ -7,6 +7,7 @@ function verifyToken(token){
     return jwt.verify(token, 'secred')
 }
 
+
 module.exports = {
     signToken,
     verifyToken
