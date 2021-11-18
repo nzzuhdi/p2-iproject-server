@@ -94,15 +94,17 @@ class eventController {
             throw{name:'doubleJoin'}
             }else{
                 const eventDetail = await Event.findOne({where: {id: eventId}})
-                let inputPlayer =  {
-                    email: `${email}`,
-                    eventname: `${eventDetail.name}`,
-                    date: `${eventDetail.date}`,
-                    time:`${eventDetail.time}`,
-                    category: `${eventDetail.category}`
-                  }
-                  await postEmailCreator(inputPlayer)
-                res.status(201).json({ user })
+                if(eventDetail){
+                    let inputPlayer =  {
+                        email: `${email}`,
+                        eventname: `${eventDetail.name}`,
+                        date: `${eventDetail.date}`,
+                        time:`${eventDetail.time}`,
+                        category: `${eventDetail.category}`
+                      }
+                      await postEmailCreator(inputPlayer)
+                      res.status(201).json({ user, message: `Success Join ${eventDetail.name} & Check your email for the reminder` })
+                }
             }
         } catch (err) {
             console.log(err);
