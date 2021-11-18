@@ -12,14 +12,7 @@ class authController {
                 res.status(201).json({ id: createdUser.id, email: createdUser.email , username: createdUser.username})
             }
         } catch (err) {
-            console.log(err);
-            let status = err.status || 500
-            let message = err.message || 'Internal server error'
-            if (err.name == 'SequelizeValidationError' || err.name == 'SequelizeUniqueConstraintError') {
-                status = 400
-                message = err.errors[0].message
-            }
-            res.status(status).json({ message })
+          next(err)
         }
     }
     static async login(req, res, next) {
@@ -38,29 +31,13 @@ class authController {
                     const access_token = signToken({ id: founUser.id, email: founUser.email })
                     res.status(200).json({ access_token: access_token })
                 } else {
-                    throw { name: 'InvalidUser' }
+                    throw { name: 'cannotLogin' }
                 }
             } else {
-                throw { name: 'InvalidUser' }
+                throw { name: 'cannotLogin' }
             }
         } catch (err) {
-            console.log(err);
-            let status = err.status || 500
-            let message = err.message || 'Internal server error'
-            if (err.name == 'SequelizeValidationError' || err.name == 'SequelizeUniqueConstraintError') {
-                status = 400
-                message = err.errors[0].message
-            } else if (err.name == 'InvalidEmail') {
-                status = 400
-                message = 'Email is required'
-            } else if (err.name == 'InvalidPassword') {
-                status = 400
-                message = 'Password is required'
-            } else if (err.name == 'InvalidUser') {
-                status = 401
-                message = 'Invalid email/password'
-            }
-            res.status(status).json({ message })
+            next(err)
         }
     }
     static async googleLogin(req, res, next) {
@@ -93,7 +70,6 @@ class authController {
             let access_token = signToken(tokenPayload)
             res.status(status).json({ access_token })
         } catch (err) {
-            console.log(err);
             next(err)
         }
     }
