@@ -74,11 +74,12 @@ class eventController {
 
     static async postPlayers(req, res, next) {
         try {
-            // const UserId = req.user.id
-            const { UserId, EventId } = req.body
+            const UserId = req.user.id
+            console.log(req.params);
+            const {  eventId } = req.params
             const input = {
                 UserId,
-                EventId
+                EventId: eventId
             }
             console.log(input);
             const result = await Player.create(input)
