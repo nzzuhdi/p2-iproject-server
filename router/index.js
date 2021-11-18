@@ -9,7 +9,7 @@ router.use('/', authRoute)
 
 router.use('/events', eventRoute)
 
-// router.use(errorHandler)
+router.use(errorHandler)
 
 
 
