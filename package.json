@@ -28,12 +28,12 @@
     "google-auth-library": "^7.10.2",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.3",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "sequelize": "^6.9.0"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
     "nodemon": "^2.0.15",
-    "sequelize": "^6.9.0",
     "sequelize-cli": "^6.3.0"
   }
 }
