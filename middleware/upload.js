@@ -14,6 +14,7 @@ const upload = async (req, res, next) => {
             throw ({ name: 'fileTypeError' })
         } 
         else {
+            
             const form = new FormData()
             form.append('file', req.file.buffer.toString("base64"))
             form.append('fileName', req.file.originalname)
@@ -27,9 +28,9 @@ const upload = async (req, res, next) => {
         }
 
     } catch (err) {
-        console.log('masuk eror');
         next(err)
     }
 }
+
 
 module.exports = upload

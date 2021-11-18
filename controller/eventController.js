@@ -1,5 +1,5 @@
 const { User, Player, Event } = require('../models')
-
+const postEmailCreator = require('../helper/nodemailer')
 class eventController {
     static async getEvents(req, res, next) {
         try {
@@ -75,18 +75,39 @@ class eventController {
     static async postPlayers(req, res, next) {
         try {
             const UserId = req.user.id
+            const email = req.user.email
             console.log(req.params);
             const {  eventId } = req.params
             const input = {
-                UserId,
-                EventId: eventId
+                where: {
+                    UserId,
+                    EventId: eventId
+                },
+                defaults: {
+                    UserId,
+                    EventId: eventId
+                }
             }
             console.log(input);
-            const result = await Player.create(input)
-            if (result) {
-                res.status(201).json({ result })
+            const [user, isCreated] = await Player.findOrCreate(input)
+            if (!isCreated) {
+            throw{name:'doubleJoin'}
+            }else{
+                const eventDetail = await Event.findOne({where: {id: eventId}})
+                if(eventDetail){
+                    let inputPlayer =  {
+                        email: `${email}`,
+                        eventname: `${eventDetail.name}`,
+                        date: `${eventDetail.date}`,
+                        time:`${eventDetail.time}`,
+                        category: `${eventDetail.category}`
+                      }
+                      await postEmailCreator(inputPlayer)
+                      res.status(201).json({ user, message: `Success Join ${eventDetail.name} & Check your email for the reminder` })
+                }
             }
         } catch (err) {
+            console.log(err);
             next(err)
         }
     }
