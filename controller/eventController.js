@@ -37,6 +37,7 @@ class eventController {
     }
     static async getEventDetail(req, res, next) {
         try {
+            console.log(req.params.id);
             const result = await Event.findOne({
                 include:[{
                     model:Player,
@@ -57,10 +58,11 @@ class eventController {
                 },
                 order: [["updatedAt", "DESC"]]
             })
-            console.log(result.Players[1].User.username);
+            console.log(result);
             res.status(200).json(result)
 
         } catch (err) {
+            console.log(err);
             next(err)
         }
     }
