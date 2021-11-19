@@ -27,13 +27,8 @@ const authentication = async (req, res, next) => {
         } else {
             throw { name: "Unauthorized" }
         }
-    } catch (error) {
-        let status = err.status || 500
-        let message = err.message || 'Internal server error'
-       if (err.name == 'Unauthorized') {
-            status = 400
-            message = 'Invalid Token'
-        } 
+    } catch (err) {
+       next(err)
     }
 }
 

@@ -31,10 +31,10 @@ class authController {
                     const access_token = signToken({ id: founUser.id, email: founUser.email })
                     res.status(200).json({ access_token: access_token })
                 } else {
-                    throw { name: 'cannotLogin' }
+                    throw { name: 'CannotLogin' }
                 }
             } else {
-                throw { name: 'cannotLogin' }
+                throw { name: 'CannotLogin' }
             }
         } catch (err) {
             next(err)

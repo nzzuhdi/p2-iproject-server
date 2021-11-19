@@ -3,7 +3,11 @@ const postEmailCreator = require('../helper/nodemailer')
 class eventController {
     static async getEvents(req, res, next) {
         try {
-            const result = await Event.findAll({ order: [["updatedAt", "DESC"]] })
+            const result = await Event.findAll({ 
+                attributes:{
+                    exclude: ["createdAt", "updatedAt", "password"]
+                }, 
+                order: [["updatedAt", "DESC"]] })
             res.status(200).json(result)
         } catch (err) {
             next(err)
@@ -63,7 +67,12 @@ class eventController {
 
     static async getPlayers(req, res, next) {
         try {
-            const result = await Player.findAll({ order: [["updatedAt", "DESC"]] })
+            console.log('masuk getpl');
+            const result = await Player.findAll({ 
+                attributes:{
+                    exclude: ["createdAt", "updatedAt", "password"]
+                }, 
+                order: [["updatedAt", "DESC"]] })
             res.status(200).json(result)
         } catch (err) {
             console.log(err);
@@ -75,7 +84,6 @@ class eventController {
         try {
             const UserId = req.user.id
             const email = req.user.email
-            console.log(req.params);
             const {  eventId } = req.params
             const input = {
                 where: {
